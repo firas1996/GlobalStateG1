@@ -1,27 +1,20 @@
 import { StyleSheet, Text, View, Button, TextInput } from "react-native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FlatList } from "react-native";
 import { Pressable } from "react-native";
 import UserItem from "../components/UserItem";
+import { FavUsersContext } from "../store/context/favUsersContext";
 
 const Users = () => {
+  const ctx = useContext(FavUsersContext);
   const [userData, setUserData] = useState("");
-  const [Users, setUsers] = useState([]);
-  const removeUser = (key) => {
-    setUsers((prevState) => {
-      return prevState.filter((user) => user.key !== key);
-    });
-  };
 
   const userInputHandler = (data) => {
     setUserData(data);
   };
   const addNewUser = () => {
     if (userData != "") {
-      setUsers((prevState) => [
-        ...prevState,
-        { name: userData, key: Math.random().toString() },
-      ]);
+      ctx.createUser(userData);
       setUserData("");
     }
   };
@@ -37,10 +30,10 @@ const Users = () => {
       </View>
       <View style={styles.users}>
         <FlatList
-          data={Users}
+          data={ctx.users}
           renderItem={(user) => (
             <UserItem
-              removeUser={removeUser}
+              removeUser={ctx.removeUser}
               id={user.item.key}
               name={user.item.name}
             />

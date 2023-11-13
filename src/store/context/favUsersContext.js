@@ -1,6 +1,6 @@
 import { createContext, useState } from "react";
 
-const FavUsersContext = createContext({
+export const FavUsersContext = createContext({
   users: [],
   favUsersIds: [],
   createUser: (data) => {},
@@ -11,17 +11,16 @@ const FavUsersContext = createContext({
 
 // we have to create a provider to wrap our application within
 const FavUsersContextProvider = ({ children }) => {
-  const [userData, setUserData] = useState("");
   const [users, setUsers] = useState([]);
   const [favUsersIds, setFavUsersIds] = useState([]);
-  const createUser = () => {
+  const createUser = (userData) => {
     if (userData != "") {
       setUsers((prevState) => [
         ...prevState,
         { name: userData, key: Math.random().toString() },
       ]);
-      setUserData("");
     }
+    console.log(users);
   };
   const removeUser = (id) => {
     setUsers((prevState) => {
