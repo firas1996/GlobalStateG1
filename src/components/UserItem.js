@@ -3,16 +3,21 @@ import { Text, StyleSheet, View, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useContext, useState } from "react";
 import { FavUsersContext } from "../store/context/favUsersContext";
+import { useDispatch } from "react-redux";
+import { addFavUsers, removeFavUsers } from "../store/redux/reducer/favorites";
 
 const UserItem = (props) => {
   const [isFav, setIsFav] = useState(false);
   const ctx = useContext(FavUsersContext);
+  const dispatch = useDispatch();
   const favHandler = () => {
     setIsFav(!isFav);
     if (isFav) {
       ctx.removeFavorite(props.id);
+      dispatch(removeFavUsers({ id: props.id }));
     } else {
       ctx.addFavorite(props.id);
+      dispatch(addFavUsers({ id: props.id }));
     }
     console.log(ctx.favUsersIds);
   };

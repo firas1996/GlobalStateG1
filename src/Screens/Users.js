@@ -4,8 +4,10 @@ import { FlatList } from "react-native";
 import { Pressable } from "react-native";
 import UserItem from "../components/UserItem";
 import { FavUsersContext } from "../store/context/favUsersContext";
+import { useSelector } from "react-redux";
 
 const Users = () => {
+  const userss = useSelector((state) => state.Users.users);
   const ctx = useContext(FavUsersContext);
   const [userData, setUserData] = useState("");
 
@@ -30,7 +32,7 @@ const Users = () => {
       </View>
       <View style={styles.users}>
         <FlatList
-          data={ctx.users}
+          data={userss}
           renderItem={(user) => (
             <UserItem
               removeUser={ctx.removeUser}
