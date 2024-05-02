@@ -7,7 +7,7 @@ import { FavUsersContext } from "../store/context/favUsersContext";
 import { useSelector } from "react-redux";
 
 const Users = () => {
-  const userss = useSelector((state) => state.Users.users);
+  // const userss = useSelector((state) => state.Users.users);
   const ctx = useContext(FavUsersContext);
   const [userData, setUserData] = useState("");
 
@@ -32,7 +32,7 @@ const Users = () => {
       </View>
       <View style={styles.users}>
         <FlatList
-          data={userss}
+          data={ctx.users}
           renderItem={(user) => (
             <UserItem
               removeUser={ctx.removeUser}

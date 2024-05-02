@@ -4,7 +4,7 @@ import UserItem from "../components/UserItem";
 import { useSelector } from "react-redux";
 
 const FavUsers = () => {
-  const favIds = useSelector((state) => state.FavUsers.ids);
+  // const favIds = useSelector((state) => state.FavUsers.ids);
   return (
     <View>
       <FlatList

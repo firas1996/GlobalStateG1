@@ -24,6 +24,7 @@ const Home = () => {
     idSender: "",
     userName: "",
   });
+  const [trigger, setTrigger] = useState(false);
   async function schedulePushNotification() {
     await Notifications.scheduleNotificationAsync({
       content: {
@@ -48,6 +49,15 @@ const Home = () => {
     });
     console.log("aaa");
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      notifHandler();
+      setTrigger(!trigger);
+    }, 3000);
+    // return ()=>{
+    //   clearTimeout(timer)
+    // }
+  }, [trigger]);
   useEffect(() => {
     Notifications.getExpoPushTokenAsync({
       projectId: Constants.expoConfig.extra.eas.projectId,
